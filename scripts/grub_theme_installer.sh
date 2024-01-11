@@ -2,8 +2,8 @@
 
 # Install git if not installed
 if ! command -v git &>/dev/null; then
-    echo "Git is not installed. Please install Git and rerun this script."
-    exit
+	echo "Git is not installed. Please install Git and rerun this script."
+	exit
 fi
 
 # Change to home directory
@@ -14,12 +14,12 @@ git clone https://github.com/AdisonCavani/distro-grub-themes.git
 
 # Auto-detect grub directory
 if [ -d "/boot/grub" ]; then
-    grub_dir="/boot/grub"
+	grub_dir="/boot/grub"
 elif [ -d "/boot/grub2" ]; then
-    grub_dir="/boot/grub2"
+	grub_dir="/boot/grub2"
 else
-    echo "Unable to auto-detect GRUB directory. Exiting..."
-    exit
+	echo "Unable to auto-detect GRUB directory. Exiting..."
+	exit
 fi
 
 echo "Detected GRUB directory: ${grub_dir}"
@@ -33,9 +33,9 @@ cd ~/distro-grub-themes/themes || exit
 # Unpack tar archives and list the themes
 echo "Available themes are:"
 for i in *.tar; do
-    tar_name="${i%%.*}"
-    echo "$tar_name"
-    tar -xf "$i"
+	tar_name="${i%%.*}"
+	echo "$tar_name"
+	tar -xf "$i"
 done
 
 # Prompt the user for the theme name
@@ -43,8 +43,8 @@ read -rp "Enter the name of the theme you want to install: " theme_name
 
 # Check if the theme exists
 if [ ! -d "$theme_name" ]; then
-    echo "Theme '${theme_name}' does not exist. Please rerun this script and enter a valid theme."
-    exit
+	echo "Theme '${theme_name}' does not exist. Please rerun this script and enter a valid theme."
+	exit
 fi
 
 # Copy theme
@@ -65,8 +65,8 @@ read -rp "Enter your choice (1-3): " choice
 
 # Update Grub config
 case $choice in
-    1) sudo update-grub ;;
-    2) sudo grub-mkconfig -o "$grub_dir"/grub.cfg ;;
-    3) sudo grub2-mkconfig -o "$grub_dir"/grub.cfg ;;
-    *) echo "Invalid choice. Please rerun this script and enter a valid option." ;;
+1) sudo update-grub ;;
+2) sudo grub-mkconfig -o "$grub_dir"/grub.cfg ;;
+3) sudo grub2-mkconfig -o "$grub_dir"/grub.cfg ;;
+*) echo "Invalid choice. Please rerun this script and enter a valid option." ;;
 esac
